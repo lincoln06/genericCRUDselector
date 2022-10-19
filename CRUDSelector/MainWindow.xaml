@@ -1,0 +1,52 @@
+﻿<Window x:Class="CRUDSelector.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CRUDSelector"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="330" Width="620">
+    <StackPanel Orientation="Vertical" x:Name="All">
+        <StackPanel Orientation="Horizontal" x:Name="Menu">
+            <Menu>
+                <MenuItem Header="_Użytkownik">
+                    <MenuItem Header="Za_loguj" Click="LoginBtn_Click"/>
+                    <MenuItem Header="Za_rejestruj" Click="RegisterBtn_Click"/>
+                    <MenuItem Header="W_yczyść" Click="ClearBtn_Click" />
+                    <MenuItem Header="Za_kończ" Click="CloseButton_Click"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" x:Name="InputOutput">
+            <StackPanel Orientation="Vertical" x:Name="Inuput" Margin="10,10,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Imię" />
+                    <TextBox x:Name="FirstNameTbx" Width="100" Margin="27,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Nazwisko" />
+                    <TextBox x:Name="LastNameTbx" Width="100" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="E-mail" />
+                    <TextBox x:Name="EmailTbx" Width="100" Margin="17,0,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Hasło" />
+                    <PasswordBox x:Name="PasswordPbx" Width="100" Margin="20,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <Label Content="Zapisz do" />
+                    <ComboBox x:Name="ChooseCrudCbx" Width="99">
+                        <ComboBoxItem Name="MongoDB">MongoDB</ComboBoxItem>
+                        <ComboBoxItem Name="SQLite">SQLite</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" x:Name="Output" Margin="10,20,0,10">
+                <Label Content="Wyjście" x:Name="OutputLb"/>
+                <TextBox x:Name="OutputTbx" Width="400" Height="200" Margin="0,10,0,0" IsReadOnly="True" IsEnabled="False"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>
