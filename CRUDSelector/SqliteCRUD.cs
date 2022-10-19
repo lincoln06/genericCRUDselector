@@ -26,15 +26,9 @@ namespace CRUDSelector
             command.CommandText = @"select * from Users where Email='"+email+"' and Password='"+password+"'";
             command.ExecuteNonQuery();
             var reader = command.ExecuteReader();
-            if(reader.Read())
-            {
-                a1=reader.GetString(0);
-                a2=reader.GetString(1);
-                a3=reader.GetString(2);
-                a4=reader.GetString(3);
-            }
-            
-            User user = new(a1, a2, a3, a4);
+            reader.Read();
+            if (!reader.HasRows) return null;
+            User user = new(reader.GetString(0),reader.GetString(1), reader.GetString(2),reader.GetString(3));
             connection.Close();
             return user;
         }

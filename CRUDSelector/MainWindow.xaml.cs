@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -17,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace CRUDSelector
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -84,6 +82,7 @@ namespace CRUDSelector
         private string LoginProcess<T>(T selectedCrud, string email, string password) where T: ICrud
         {
             User user = selectedCrud.Login(email,password);
+            if (user == null) return "Brak danych";
             string outputMessage =
                 "Dane użytkownika:\n" +
                 $"Imię\t{user.FirstName}\n" +
@@ -92,11 +91,7 @@ namespace CRUDSelector
                 $"Zalogowano przy użyciu {ChooseCrudCbx.Text}";
             return outputMessage;
         }
-        private void ShowErrorMessage()
-        {
-            MessageBox.Show("Wystąpił nieznany błąd", "Uwaga!", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
+        
         private void ProcessBtn_Click(object sender, RoutedEventArgs e)
         {
             switch (ChooseActionCbx.SelectedIndex)
