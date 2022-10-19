@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CRUDSelector
 {
@@ -24,21 +9,16 @@ namespace CRUDSelector
         {
             InitializeComponent();
         }
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void LoginBtn_Click()
         {
             var selectedCrud = CheckSelection();
-            
             OutputTbx.Clear();
-            string tempPass = Coder.Encrypt(PasswordPbx.Password, EmailTbx.Text);
-            OutputTbx.Text= LoginProcess(selectedCrud, EmailTbx.Text.ToString(), tempPass);
+            OutputTbx.Text= LoginProcess(selectedCrud, EmailTbx.Text.ToString(), Coder.Encrypt(PasswordPbx.Password, EmailTbx.Text));
         }
-
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
             OutputTbx.IsEnabled = false;
@@ -50,16 +30,12 @@ namespace CRUDSelector
             ChooseCrudCbx.SelectedItem=null;
             ChooseActionCbx.SelectedItem = null;
         }
-
-
         private void RegisterBtn_Click()
         {
             var selectedCrud = CheckSelection();
             User user = new(FirstNameTbx.Text, LastNameTbx.Text, EmailTbx.Text, PasswordPbx.Password);
-            
             OutputTbx.Clear();
             OutputTbx.Text= RegistrationProcess(selectedCrud, user);
-
         }
         private ICrud CheckSelection()
         {
@@ -85,13 +61,14 @@ namespace CRUDSelector
             if (user == null) return "Brak danych";
             string outputMessage =
                 "Dane użytkownika:\n" +
-                $"Imię\t{user.FirstName}\n" +
-                $"Nazwisko\t{user.LastName}" +
-                $"E-mail:\t{user.Email}\n" +
-                $"Zalogowano przy użyciu {ChooseCrudCbx.Text}";
+                new string('-',40)+
+                $"\nImię\t\t{user.FirstName}\n" +
+                $"Nazwisko\t{user.LastName}\n" +
+                $"E-mail:\t\t{user.Email}\n" +
+                new string('-',40)+
+                $"\nZalogowano przy użyciu {ChooseCrudCbx.Text}";
             return outputMessage;
         }
-        
         private void ProcessBtn_Click(object sender, RoutedEventArgs e)
         {
             switch (ChooseActionCbx.SelectedIndex)
@@ -104,7 +81,6 @@ namespace CRUDSelector
                     break;
             }
         }
-
         private void ChooseCrudCbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cbxControl = sender as ComboBox;
@@ -117,10 +93,8 @@ namespace CRUDSelector
                 default:
                     ProcessBtn.Visibility = Visibility.Hidden;
                     break;
-                    
             }
         }
-
         private void ChooseActionCbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var cbxControl = sender as ComboBox;
