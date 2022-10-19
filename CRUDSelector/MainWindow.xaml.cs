@@ -32,7 +32,7 @@ namespace CRUDSelector
             Close();
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        private void LoginBtn_Click()
         {
             var selectedCrud = CheckSelection();
             
@@ -50,10 +50,11 @@ namespace CRUDSelector
             PasswordPbx.Clear();
             OutputTbx.Clear();
             ChooseCrudCbx.SelectedItem=null;
+            ChooseActionCbx.SelectedItem = null;
         }
 
 
-        private void RegisterBtn_Click(object sender, RoutedEventArgs e)
+        private void RegisterBtn_Click()
         {
             var selectedCrud = CheckSelection();
             User user = new(FirstNameTbx.Text, LastNameTbx.Text, EmailTbx.Text, PasswordPbx.Password);
@@ -94,6 +95,64 @@ namespace CRUDSelector
         private void ShowErrorMessage()
         {
             MessageBox.Show("Wystąpił nieznany błąd", "Uwaga!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void ProcessBtn_Click(object sender, RoutedEventArgs e)
+        {
+            switch (ChooseActionCbx.SelectedIndex)
+            {
+                case 0:
+                    LoginBtn_Click();
+                    break;
+                case 1:
+                    RegisterBtn_Click();
+                    break;
+            }
+        }
+
+        private void ChooseCrudCbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cbxControl = sender as ComboBox;
+            switch(cbxControl.SelectedIndex)
+            {
+                case 0:
+                case 1:
+                    ProcessBtn.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    ProcessBtn.Visibility = Visibility.Hidden;
+                    break;
+                    
+            }
+        }
+
+        private void ChooseActionCbx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var cbxControl = sender as ComboBox;
+            switch(cbxControl.SelectedIndex)
+            {
+                case 0:
+                    FirstNameTbx.IsEnabled = false;
+                    LastNameTbx.IsEnabled = false;
+                    EmailTbx.IsEnabled = true;
+                    PasswordPbx.IsEnabled = true;
+                    ChooseCrudCbx.IsEnabled = true;
+                    break;
+                case 1:
+                    FirstNameTbx.IsEnabled = true;
+                    LastNameTbx.IsEnabled = true;
+                    EmailTbx.IsEnabled = true;
+                    PasswordPbx.IsEnabled = true;
+                    ChooseCrudCbx.IsEnabled = true;
+                    break;
+                default:
+                    FirstNameTbx.IsEnabled = false;
+                    LastNameTbx.IsEnabled = false;
+                    EmailTbx.IsEnabled = false; ;
+                    PasswordPbx.IsEnabled = false;
+                    ChooseCrudCbx.IsEnabled = false;
+                    break;
+            }
         }
     }
 }
