@@ -24,7 +24,6 @@ namespace CRUDSelector
         {
             connection.Open();
             var command = connection.CreateCommand();
-            MessageBox.Show(user.Password);
             command.CommandText = @"insert into Users(FirstName,LastName,Email,Password) values('" + user.FirstName + "','" + user.LastName + "','" + user.Email + "','" + user.Password + "')";
             command.ExecuteNonQuery();
             connection.Close();
