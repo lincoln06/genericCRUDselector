@@ -9,10 +9,6 @@ namespace CRUDSelector
         {
             InitializeComponent();
         }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
         private void LoginBtn_Click()
         {
             var selectedCrud = CheckSelection();
